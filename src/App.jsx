@@ -14,7 +14,7 @@ function App() {
  
   return (
     <BrowserRouter>
-    <Navbar/>
+    {location.pathname !== APP_URL.LOGIN &&<Navbar/>}
       <Routes>
         <Route path={APP_URL.HOMEPAGE} element={          
         
