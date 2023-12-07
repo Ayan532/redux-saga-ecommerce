@@ -10,6 +10,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import { useDispatch } from 'react-redux';
 import { fetchData } from '../../redux-saga/redux/slices/dataSlice';
+import {useNavigate} from 'react-router-dom'
+import Button from '@mui/material/Button';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -56,6 +58,18 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function Navbar() {
     const [search,setSearch]=React.useState('')
     const dispatch=useDispatch()
+    const isLoggedIn = !!localStorage.getItem('user');
+    const navigate=useNavigate();
+
+    const handleLogout=()=>{
+      localStorage.removeItem('user');
+    localStorage.removeItem('isLoggedIn');
+    alert('Logout successful!');
+    window.location.reload();
+    }
+    const handleLogin = ()=>{
+      navigate('/login')
+    }
 
     React.useEffect(()=>{
         dispatch(fetchData(search))
@@ -64,6 +78,7 @@ export default function Navbar() {
   return (
     <Box sx={{ flexGrow: 1 }} >
       <AppBar position="static">
+      
         <Toolbar>
           <IconButton
             size="large"
@@ -73,6 +88,7 @@ export default function Navbar() {
             sx={{ mr: 2 }}
           >
             <MenuIcon />
+          
           </IconButton>
           <Typography
             variant="h6"
@@ -82,6 +98,22 @@ export default function Navbar() {
           >
             MUI
           </Typography>
+          {isLoggedIn ? (
+          <Button color="inherit"  onClick={handleLogout}>
+            Logout
+          </Button>
+        ) : (
+          <Button variant="contained" 
+                  color="primary" 
+                  style={{ 
+                    '&:hover': {
+                      backgroundColor: '#007BFF',
+                      borderColor: '#0062cc',
+                    },
+                  }}  onClick={handleLogin}>
+            Login
+          </Button>
+        )}
           <Search>
             <SearchIconWrapper>
               <SearchIcon />

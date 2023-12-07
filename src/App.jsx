@@ -9,8 +9,14 @@ import {Login} from "./pages"
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { APP_URL } from './config'
 import { Navbar } from './components'
+import { useLocation } from 'react-router-dom'
+
+
 const Home = lazy(() => import ('./pages/Home'));
 function App() {
+  useEffect(() => {
+    console.log('Pathname changed:', location.pathname);
+  }, [location.pathname]);
  
   return (
     <BrowserRouter>

@@ -18,6 +18,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchData } from '../redux-saga/redux/slices/dataSlice';
 
+
 function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
@@ -37,6 +38,9 @@ function Copyright() {
 export default function Album() {
     const dispatch=useDispatch()
     const {data:cards,status}=useSelector(state=>state.data)
+
+
+   
     
   React.useEffect(()=>{
       dispatch(fetchData())
@@ -54,6 +58,7 @@ export default function Album() {
           }}
         >
           <Container maxWidth="sm">
+          
             <Typography
               component="h1"
               variant="h2"

@@ -37,15 +37,17 @@ export default function Login() {
         </Toolbar>
       </AppBar>
       <Grid item>
-        <Paper style={{ height: '70vh', width: '30vh', marginTop: '10vh' }}>
-          <Grid container direction="column" alignItems="center" justify="center" style={{ minHeight: '70vh' }}>
+        <Paper style={{ height: '50vh', width: '40vh', marginTop: '10vh',background:"#d6d6d6" }}>
+          <Grid container direction="column" alignItems="center" justify="center" style={{ minHeight: '70vh'}}>
             <div />
-            <div>
+            <div style={{ display:"flex",flexDirection:"column"}}>
               <TextField label="Username" margin="normal" 
                 onChange={(e) => setUsername(e.target.value)}
+                InputProps={{ style: { backgroundColor: 'white' } }}
               />
               <TextField label="Password" margin="normal" type="password" value={password}
               onChange={(e)=> setPassword(e.target.value)}
+              InputProps={{ style: { backgroundColor: 'white' } }}
               />
             </div>
             <div>
