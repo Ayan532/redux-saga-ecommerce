@@ -4,19 +4,24 @@ import { loginUser } from './../services/auth.service';
 import { useNavigate } from 'react-router-dom';
 // import { toast, ToastContainer } from 'react-toastify';
 // import 'react-toastify/dist/ReactToastify.css';
+import { useDispatch } from 'react-redux';
+import { loginStart, loginSuccess, loginFailure } from '../redux-saga/redux/slices/authSlice';
 
 
 export default function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleLogin =async ()=>{
     
       try {
+        dispatch(loginStart());
         const token = await loginUser(username, password);
-      
-        localStorage.setItem('user', JSON.stringify(token));
+        dispatch(loginSuccess(token));
+     
+      localStorage.setItem('user', JSON.stringify(token));
       localStorage.setItem('isLoggedIn', 'true');
       // router.replace('/');
       navigate('/');
@@ -24,6 +29,7 @@ export default function Login() {
       alert("login suceess!")
   
       } catch (error) {
+        dispatch(loginFailure(error.message || 'Login failed'));
         console.log('📢[Login.jsx:80]: error: ', error);
         
       }
