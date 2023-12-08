@@ -1,60 +1,54 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Button from '@mui/material/Button';
-import CameraIcon from '@mui/icons-material/PhotoCamera';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import CssBaseline from '@mui/material/CssBaseline';
-import Grid from '@mui/material/Grid';
-import Stack from '@mui/material/Stack';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import Link from '@mui/material/Link';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchData } from '../redux-saga/redux/slices/dataSlice';
+import * as React from "react";
+import AppBar from "@mui/material/AppBar";
+import Button from "@mui/material/Button";
+import CameraIcon from "@mui/icons-material/PhotoCamera";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import CssBaseline from "@mui/material/CssBaseline";
+import Grid from "@mui/material/Grid";
+import Stack from "@mui/material/Stack";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchData } from "../redux-saga/redux/slices/dataSlice";
+import { BannerSlider, ProductCard } from "../components";
+import { imageSlidersBanners } from "../config";
+import { useTheme } from "@emotion/react";
+import { Favorite } from "@mui/icons-material";
+import { CardHeader, IconButton } from "@mui/material";
+
+function getBannerData() {
+  return imageSlidersBanners;
 }
 
-
-
-
 export default function Album() {
-    const dispatch=useDispatch()
-    const {data:cards,status}=useSelector(state=>state.data)
-    
-  React.useEffect(()=>{
-      dispatch(fetchData())
-    },[dispatch])
+  const dispatch = useDispatch();
+  const theme = useTheme();
+  
+  const bannerSlides = getBannerData();
+  const { data: cards, status } = useSelector((state) => state.data);
+
+  React.useEffect(() => {
+    dispatch(fetchData());
+  }, [dispatch]);
   return (
-    <div>
-     
-      <main>
-        {/* Hero unit */}
-        <Box
-          sx={{
-            bgcolor: 'background.paper',
-            pt: 8,
-            pb: 6,
-          }}
-        >
-          <Container maxWidth="sm">
-            <Typography
+    <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      {/* Hero unit */}
+      <Box
+        sx={{
+          bgcolor: "background.paper",
+          pt: 8,
+          pb: 6,
+        }}
+      >
+        <Box sx={{ flexGrow: 1 }}>
+          {/* <Typography
               component="h1"
               variant="h2"
               align="center"
@@ -76,61 +70,18 @@ export default function Album() {
             >
               <Button variant="contained">Main call to action</Button>
               <Button variant="outlined">Secondary action</Button>
-            </Stack>
-          </Container>
+            </Stack> */}
+          <BannerSlider slides={bannerSlides} />
         </Box>
-        <Container sx={{ py: 8 }} maxWidth="md">
-          {/* End hero unit */}
-          <Grid container spacing={4}>
-            {cards.map((card) => (
-                
-             ( <Grid item key={card.id} xs={12} sm={6} md={4}>
-               
-                <Card
-                  sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
-                >
-                  <CardMedia
-                    component="div"
-                    sx={{
-                      // 16:9
-                      pt: '56.25%',
-                    }}
-                    image={card?.images[0]}
-                  />
-                  <CardContent sx={{ flexGrow: 1 }}>
-                    <Typography gutterBottom variant="h5" component="h2">
-                     {card?.title}
-                    </Typography>
-                    <Typography >
-                     {card?.description}
-                    </Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Button size="small">View</Button>
-                    <Button size="small">Edit</Button>
-                  </CardActions>
-                </Card>
-              </Grid>)
-            ))}
-          </Grid>
-        </Container>
-      </main>
-      {/* Footer */}
-      <Box sx={{ bgcolor: 'background.paper', p: 6 }} component="footer">
-        <Typography variant="h6" align="center" gutterBottom>
-          Footer
-        </Typography>
-        <Typography
-          variant="subtitle1"
-          align="center"
-          color="text.secondary"
-          component="p"
-        >
-          Something here to give the footer a purpose!
-        </Typography>
-        <Copyright />
       </Box>
-      {/* End footer */}
-    </div>
+      <Container sx={{ py: 8 }} maxWidth="md">
+        {/* End hero unit */}
+        <Grid container spacing={4}>
+          {cards.map((card) => (
+            <ProductCard key={card.id} card={card}/>
+          ))}
+        </Grid>
+      </Container>
+    </Box>
   );
 }

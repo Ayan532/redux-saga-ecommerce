@@ -2,7 +2,8 @@ export const BASE_URL='https://dummyjson.com'
 
 export const APP_URL={
     HOMEPAGE:'/',
-    LOGIN:'/login'
+    LOGIN:'/login',
+    CART:'/cart'
 
 }
 

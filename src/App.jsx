@@ -5,14 +5,15 @@ import { fetchData } from './redux-saga/redux/slices/dataSlice'
 import { Card } from './common'
 import { CircularProgress, Stack } from '@mui/material'
 
-import {Login} from "./pages"
+import {Cart, Login} from "./pages"
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { APP_URL } from './config'
-import { Navbar } from './components'
+import { Footer, Navbar } from './components'
 const Home = lazy(() => import ('./pages/Home'));
 function App() {
  
   return (
+    <div className='bg-gray-100'>
     <BrowserRouter>
     {location.pathname !== APP_URL.LOGIN &&<Navbar/>}
       <Routes>
@@ -29,9 +30,13 @@ function App() {
         }
 
         />
+    
         <Route path={APP_URL.LOGIN} element={<Login/>}/>
+        <Route path={APP_URL.CART} element={<Cart/>}/>
       </Routes>
+      {/* <Footer/> */}
     </BrowserRouter>
+    </div>
   )
 }
 

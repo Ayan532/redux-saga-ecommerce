@@ -1,4 +1,6 @@
-
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 html,
 body,
@@ -16,5 +18,35 @@ body,
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+
+.mySwiperBanner .swiper-button-prev,
+.mySwiperBanner .swiper-button-next {
+  width: 3vw;
+  height: 3vw;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.6);
+  opacity: 0.5;
+}
+.mySwiperBanner .swiper-button-prev:hover,
+.mySwiperBanner .swiper-button-next:hover {
+  opacity: 1;
+}
+.mySwiperBanner .swiper-button-prev::after,
+.mySwiperBanner .swiper-button-next::after {
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+/* Image Slider */
+.mySwiperImage .swiper-button-prev::after,
+.mySwiperImage .swiper-button-next::after {
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.scroll-disable::-webkit-scrollbar{
+  display: none;
 }
 
